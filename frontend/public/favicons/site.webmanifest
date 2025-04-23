@@ -1,14 +1,1 @@
-{
-    "name": "",
-    "short_name": "",
-    "icons": [
-       {
-          "src": "/android-chrome-192x192.png",
-          "sizes": "192x192",
-          "type": "image/png"
-       }
-    ],
-    "theme_color": "#FFFFFF",
-    "background_color": "#FFFFFF",
-    "display": "standalone"
- }
+ewogICAgIm5hbWUiOiAiIiwKICAgICJzaG9ydF9uYW1lIjogIiIsCiAgICAiaWNvbnMiOiBbCiAgICAgICB7CiAgICAgICAgICAic3JjIjogIi9hbmRyb2lkLWNocm9tZS0xOTJ4MTkyLnBuZyIsCiAgICAgICAgICAic2l6ZXMiOiAiMTkyeDE5MiIsCiAgICAgICAgICAidHlwZSI6ICJpbWFnZS9wbmciCiAgICAgICB9CiAgICBdLAogICAgInRoZW1lX2NvbG9yIjogIiNGRkZGRkYiLAogICAgImJhY2tncm91bmRfY29sb3IiOiAiI0ZGRkZGRiIsCiAgICAiZGlzcGxheSI6ICJzdGFuZGFsb25lIgogfQ==

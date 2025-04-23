@@ -4,7 +4,8 @@ import bcrypt from "bcryptjs";
 import dotenv from "dotenv";
 import crypto from "crypto";
 import asyncHandler from "express-async-handler";
-import { sendEmail } from "../utils/emailService.js";
+// Import the enhanced email service and templates
+import { sendEmail, emailTemplates } from "../utils/emailService.js";
 
 dotenv.config();
 
@@ -42,14 +43,17 @@ const registerUser = asyncHandler(async (req, res) => {
   });
 
   if (user) {
-    // Send welcome email
+    // Send welcome email using enhanced emailTemplates
     try {
+      const { subject, html, text } = emailTemplates.welcome(user.name);
       await sendEmail({
         email: user.email,
-        subject: "Welcome to Cake Heaven!",
-        message: `Hi ${user.name},\n\nThank you for registering with Cake Heaven. We've added 100 bonus points to your wallet to get you started.\n\nHappy Shopping!`,
+        subject,
+        html,
+        text,
       });
     } catch (error) {
+      // Log the error but don't fail registration if email fails
       console.error("Welcome email could not be sent", error);
     }
 
@@ -308,34 +312,33 @@ const forgotPassword = asyncHandler(async (req, res) => {
     throw new Error("User not found");
   }
 
-  // Get reset token
-  const resetToken = user.getResetPasswordToken();
-
+  // Generate reset token
+  const resetToken = crypto.randomBytes(20).toString("hex");
+  user.resetPasswordToken = crypto.createHash("sha256").update(resetToken).digest("hex");
+  user.resetPasswordExpire = Date.now() + 60 * 60 * 1000; // 1 hour
   await user.save({ validateBeforeSave: false });
 
-  // Create reset URL
-  const resetUrl = `${req.protocol}://${req.get(
-    "host"
-  )}/reset-password/${resetToken}`;
-
-  const message = `You are receiving this email because you (or someone else) has requested the reset of a password. Please visit: ${resetUrl}`;
-
+  // Send password reset email using the enhanced template
   try {
+    const { subject, html, text } = emailTemplates.passwordReset(resetToken, user.name);
     await sendEmail({
       email: user.email,
-      subject: "Password Reset Token",
-      message,
+      subject,
+      html,
+      text,
     });
 
-    res.status(200).json({ success: true, data: "Email sent" });
+    res.status(200).json({ success: true, message: "Password reset email sent" });
   } catch (error) {
     user.resetPasswordToken = undefined;
     user.resetPasswordExpire = undefined;
-
     await user.save({ validateBeforeSave: false });
 
-    res.status(500);
-    throw new Error("Email could not be sent");
+    console.error("Password reset email could not be sent", error);
+    res.status(500).json({
+      success: false,
+      message: "Email could not be sent, please try again later",
+    });
   }
 });
 
@@ -507,14 +510,23 @@ const adminResetPassword = async (req, res) => {
     // Create reset URL
     const resetUrl = `${req.protocol}://${req.get("host")}/reset-password/${resetToken}`;
 
-    // Create message
-    const message = `You are receiving this email because an administrator has requested to reset your password. Please click the link below to reset your password:\n\n${resetUrl}`;
+    // Create message using enhanced template if available, fallback otherwise
+    let subject, html, text;
+    if (emailTemplates && emailTemplates.adminPasswordReset) {
+      ({ subject, html, text } = emailTemplates.adminPasswordReset(resetToken, user.name));
+    } else {
+      subject = "Password reset request";
+      html = undefined;
+      text =
+        `You are receiving this email because an administrator has requested to reset your password. Please click the link below to reset your password:\n\n${resetUrl}`;
+    }
 
     try {
       await sendEmail({
         email: user.email,
-        subject: "Password reset request",
-        message,
+        subject,
+        html,
+        text,
       });
 
       res.json({ success: true, message: "Password reset email sent" });

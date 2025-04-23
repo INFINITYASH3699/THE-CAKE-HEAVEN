@@ -71,49 +71,49 @@ const Footer: React.FC = () => {
               <h6 className="uppercase font-bold mb-4">COLLECTIONS</h6>
               <div className="flex flex-col space-y-2">
                 <Link
-                  href="/cakelist"
+                  href="/shop/category/cakes"
                   className="text-gray-600 hover:text-pink-500 transition"
                 >
                   Same Day Cakes
                 </Link>
                 <Link
-                  href="/cakelist"
+                  href="/shop/category/cakes?subCategory=Classic"
                   className="text-gray-600 hover:text-pink-500 transition"
                 >
                   Classic Cakes
                 </Link>
                 <Link
-                  href="/cakelist"
+                  href="/shop/category/cakes?custom=true"
                   className="text-gray-600 hover:text-pink-500 transition"
                 >
                   Custom Cakes
                 </Link>
                 <Link
-                  href="/cakelist"
+                  href="/shop/category/cupcakes"
                   className="text-gray-600 hover:text-pink-500 transition"
                 >
                   Cup Cakes
                 </Link>
                 <Link
-                  href="/cakelist"
+                  href="/shop/category/desserts"
                   className="text-gray-600 hover:text-pink-500 transition"
                 >
                   Desserts
                 </Link>
                 <Link
-                  href="/cakelist"
+                  href="/shop/category/cakes?addon=flowers"
                   className="text-gray-600 hover:text-pink-500 transition"
                 >
                   Flowers
                 </Link>
                 <Link
-                  href="/cakelist"
+                  href="/shop/category/cakes?occasion=Anniversary"
                   className="text-gray-600 hover:text-pink-500 transition"
                 >
                   Anniversary Cakes
                 </Link>
                 <Link
-                  href="/cakelist"
+                  href="/shop/category/cakes?occasion=Birthday"
                   className="text-gray-600 hover:text-pink-500 transition"
                 >
                   Birthday Cakes
@@ -126,7 +126,7 @@ const Footer: React.FC = () => {
               <h6 className="uppercase font-bold mb-4">QUICK LINKS</h6>
               <div className="flex flex-col space-y-2">
                 <Link
-                  href="/about"
+                  href="/contact"
                   className="text-gray-600 hover:text-pink-500 transition"
                 >
                   Contact Us
@@ -138,25 +138,25 @@ const Footer: React.FC = () => {
                   About us
                 </Link>
                 <Link
-                  href="/PrivacyPolicy"
+                  href="/shop/privacy-policy"
                   className="text-gray-600 hover:text-pink-500 transition"
                 >
                   Privacy Policy
                 </Link>
                 <Link
-                  href="/terms"
+                  href="/shop/terms"
                   className="text-gray-600 hover:text-pink-500 transition"
                 >
                   Terms & Conditions
                 </Link>
                 <Link
-                  href="/shippingpolicy"
+                  href="/shop/shipping-policy"
                   className="text-gray-600 hover:text-pink-500 transition"
                 >
                   Shipping Policy
                 </Link>
                 <Link
-                  href="/Cancellation"
+                  href="/shop/refund-policy"
                   className="text-gray-600 hover:text-pink-500 transition"
                 >
                   Return & Refund Policy

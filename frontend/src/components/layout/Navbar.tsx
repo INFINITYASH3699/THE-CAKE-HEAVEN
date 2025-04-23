@@ -10,6 +10,7 @@ interface DropdownState {
   desserts: boolean;
   trending: boolean;
   unique: boolean;
+  info: boolean; // New dropdown for information pages
 }
 
 const Navbar: React.FC = () => {
@@ -21,6 +22,7 @@ const Navbar: React.FC = () => {
     desserts: false,
     trending: false,
     unique: false,
+    info: false, // Initialize new dropdown state
   });
 
   const toggleNavbar = (): void => {
@@ -37,9 +39,9 @@ const Navbar: React.FC = () => {
   return (
     <nav className="border-t border-b bg-pink-300">
       <div className="container mx-auto px-4">
-        <button 
-          className="lg:hidden flex items-center px-3 py-2 border rounded text-gray-500 border-gray-500 hover:text-gray-700 hover:border-gray-700" 
-          type="button" 
+        <button
+          className="lg:hidden flex items-center px-3 py-2 border rounded text-gray-500 border-gray-500 hover:text-gray-700 hover:border-gray-700"
+          type="button"
           onClick={toggleNavbar}
         >
           <svg className="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -173,6 +175,44 @@ const Navbar: React.FC = () => {
               <Link className="block py-2 text-gray-800 hover:text-gray-600" href="/shop/category/cakes?featured=true">
                 Featured Cakes
               </Link>
+            </li>
+
+            {/* Information Pages Dropdown */}
+            <li
+              className="relative mx-3 group"
+              onMouseEnter={() => toggleDropdown("info")}
+              onMouseLeave={() => toggleDropdown("info")}
+            >
+              <div className="block py-2 text-gray-800 hover:text-gray-600 cursor-pointer flex items-center">
+                Information
+                <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </div>
+              {isDropdownOpen.info && (
+                <div className="absolute right-0 mt-0 w-48 bg-white border rounded-md shadow-lg z-1000">
+                  <div className="p-2">
+                    <Link
+                      className="block px-4 py-2 text-gray-700 hover:bg-pink-50 rounded-md"
+                      href="/about"
+                    >
+                      About Us
+                    </Link>
+                    <Link
+                      className="block px-4 py-2 text-gray-700 hover:bg-pink-50 rounded-md"
+                      href="/faq"
+                    >
+                      FAQs
+                    </Link>
+                    <Link
+                      className="block px-4 py-2 text-gray-700 hover:bg-pink-50 rounded-md"
+                      href="/contact"
+                    >
+                      Contact Us
+                    </Link>
+                  </div>
+                </div>
+              )}
             </li>
           </ul>
         </div>
