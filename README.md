@@ -2,7 +2,7 @@
 
 ![Cake Heaven Logo](frontend/public/images/logo.jpg)
 
-## 🍰 Project Overview
+## 🍰 Project Overview 
 
 The Cake Heaven is a comprehensive e-commerce platform for cake shops, bakeries, and pastry businesses. This full-stack application offers a delightful shopping experience for customers looking to purchase cakes and desserts for various occasions.
 
